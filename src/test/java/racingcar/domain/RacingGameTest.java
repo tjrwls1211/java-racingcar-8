@@ -13,8 +13,22 @@ public class RacingGameTest {
 
         racingGame.play(5);
 
-        for (Car car : cars) {
-            assertThat(car.getPosition()).isBetween(0, 5);
-        }
+        assertThat(cars)
+                .allSatisfy(car -> assertThat(car.getPosition()).isBetween(0, 5));
     }
+
+    @Test
+    void 가장_먼저_도착한_자동차가_우승한다() {
+        List<Car> cars = List.of(new Car("jini"), new Car("mini"));
+        RacingGame racingGame = new RacingGame(cars);
+
+        racingGame.play(5);
+        List<String> winners = racingGame.getWinners();
+
+        System.out.println(winners);
+
+        assertThat(winners).isNotEmpty();
+    }
+
+
 }
