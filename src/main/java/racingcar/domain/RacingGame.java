@@ -14,13 +14,7 @@ public class RacingGame {
         this.cars = cars;
     }
 
-    public void play(int attempts) {
-        for (int i = 0; i < attempts; i++) {
-            moveAllCars();
-        }
-    }
-
-    private void moveAllCars() {
+    public void moveAllCars() {
         for (Car car : cars) {
             int randomNumber = Randoms.pickNumberInRange(RANDOM_MIN, RANDOM_MAX);
             car.move(randomNumber);
