@@ -2,6 +2,7 @@ package racingcar.domain;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.*;
 
 public class RacingGameTest {
@@ -11,10 +12,13 @@ public class RacingGameTest {
         List<Car> cars = List.of(new Car("jini"), new Car("mini"));
         RacingGame racingGame = new RacingGame(cars);
 
-        racingGame.play(5);
+        int attemptCount = 5;
+        for (int i = 0; i < attemptCount; i++) {
+            racingGame.moveAllCars();
+        }
 
         assertThat(cars)
-                .allSatisfy(car -> assertThat(car.getPosition()).isBetween(0, 5));
+                .allSatisfy(car -> assertThat(car.getPosition()).isBetween(0, attemptCount));
     }
 
     @Test
@@ -22,13 +26,12 @@ public class RacingGameTest {
         List<Car> cars = List.of(new Car("jini"), new Car("mini"));
         RacingGame racingGame = new RacingGame(cars);
 
-        racingGame.play(5);
-        List<String> winners = racingGame.getWinners();
+        for (int i = 0; i < 5; i++) {
+            racingGame.moveAllCars();
+        }
 
-        System.out.println(winners);
+        List<String> winners = racingGame.getWinners();
 
         assertThat(winners).isNotEmpty();
     }
-
-
 }
