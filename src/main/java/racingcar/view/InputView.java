@@ -11,4 +11,9 @@ public class InputView {
         String input = Console.readLine();
         return Arrays.asList(input.split(","));
     }
+
+    public static int readAttemptCount() {
+        System.out.println("시도할 횟수는 몇 회인가요?");
+        return Integer.parseInt(Console.readLine());
+    }
 }
