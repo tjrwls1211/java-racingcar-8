@@ -14,8 +14,16 @@ class InputViewTest extends NsTest {
         assertThat(output()).contains("경주할 자동차 이름을 입력하세요");
     }
 
+    @Test
+    void 시도할_횟수를_입력받는다() {
+        run("pobi,woni", "5");
+
+        assertThat(output()).contains("시도할 횟수는 몇 회인가요?");
+    }
+
     @Override
     protected void runMain() {
         InputView.readCarNames();
+        InputView.readAttemptCount();
     }
 }
