@@ -55,23 +55,31 @@ public class InputView {
         }
 
         for (String name : names) {
-            if (name.isBlank()) {
-                throw new IllegalArgumentException("자동차 이름은 비어 있을 수 없습니다.");
-            }
-            if (name.length() > 5) {
-                throw new IllegalArgumentException("자동차 이름은 5자를 초과할 수 없습니다.");
-            }
+            validateCarName(name);
+        }
+    }
+
+    private static void validateCarName(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("자동차 이름은 비어 있을 수 없습니다.");
+        }
+        if (name.length() > 5) {
+            throw new IllegalArgumentException("자동차 이름은 5자를 초과할 수 없습니다.");
         }
     }
 
     public static void validateAttemptCount(String input) {
         try {
             int attemptCount = Integer.parseInt(input);
-            if (attemptCount < 1) {
-                throw new IllegalArgumentException("시도 횟수는 1회 이상이어야 합니다.");
-            }
+            checkAttemptCountRange(attemptCount);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("시도 횟수는 숫자여야 합니다.");
+        }
+    }
+
+    private static void checkAttemptCountRange(int attemptCount) {
+        if (attemptCount < 1) {
+            throw new IllegalArgumentException("시도 횟수는 1회 이상이어야 합니다.");
         }
     }
 }
