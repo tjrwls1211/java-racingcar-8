@@ -16,7 +16,9 @@ public class InputView {
 
     public static int readAttemptCount() {
         System.out.println("시도할 횟수는 몇 회인가요?");
-        return Integer.parseInt(Console.readLine());
+        String input = Console.readLine();
+        validateAttemptCount(input);
+        return Integer.parseInt(input);
     }
 
     public static void validateCarNames(List<String> names) {
@@ -40,6 +42,17 @@ public class InputView {
             if (name.length() > 5) {
                 throw new IllegalArgumentException("자동차 이름은 5자를 초과할 수 없습니다.");
             }
+        }
+    }
+
+    public static void validateAttemptCount(String input) {
+        try {
+            int attemptCount = Integer.parseInt(input);
+            if (attemptCount < 1) {
+                throw new IllegalArgumentException("시도 횟수는 1회 이상이어야 합니다.");
+            }
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("시도 횟수는 숫자여야 합니다.");
         }
     }
 
