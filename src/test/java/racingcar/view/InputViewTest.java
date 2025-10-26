@@ -86,6 +86,27 @@ class InputViewTest extends NsTest {
                 .hasMessageContaining("시도 횟수는 1회 이상이어야 합니다.");
     }
 
+    @Test
+    void 자동차_이름이_쉼표로_끝나면_예외가_발생한다() {
+        assertThatThrownBy(() -> InputView.validateInputFormat("pobi,juni,"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("자동차 이름은 쉼표(,)로 끝날 수 없습니다.");
+    }
+
+    @Test
+    void 입력_형식에서_연속_쉼표가_있으면_예외가_발생한다() {
+        assertThatThrownBy(() -> InputView.validateInputFormat("pobi,,juni"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("자동차 이름 사이에 빈 값이 있으면 안 됩니다.");
+    }
+
+    @Test
+    void 자동차_이름이_쉼표로_시작하면_예외가_발생한다() {
+        assertThatThrownBy(() -> InputView.validateInputFormat(",pobi,juni"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("자동차 이름은 쉼표(,)로 시작할 수 없습니다.");
+    }
+
     @Override
     protected void runMain() {
         InputView.readCarNames();
