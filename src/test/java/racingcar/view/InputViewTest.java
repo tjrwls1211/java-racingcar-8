@@ -63,6 +63,20 @@ class InputViewTest extends NsTest {
                 .hasMessageContaining("자동차는 2대 이상이어야 합니다.");
     }
 
+    @Test
+    void 시도_횟수가_숫자가_아닐_경우_예외가_발생한다() {
+        assertThatThrownBy(() -> InputView.validateAttemptCount("five"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("시도 횟수는 숫자여야 합니다.");
+    }
+
+    @Test
+    void 시도_횟수가_1회_미만일_경우_예외가_발생한다() {
+        assertThatThrownBy(() -> InputView.validateAttemptCount("0"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("시도 횟수는 1회 이상이어야 합니다.");
+    }
+
     @Override
     protected void runMain() {
         InputView.readCarNames();
