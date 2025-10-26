@@ -1,18 +1,17 @@
 package racingcar.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import racingcar.domain.Car;
 import racingcar.domain.RacingGame;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class RacingController {
 
     public void run() {
         List<String> carNames = InputView.readCarNames();
-
         int attemptCount = InputView.readAttemptCount();
 
         List<Car> cars = carNames.stream()
@@ -21,16 +20,13 @@ public class RacingController {
 
         RacingGame racingGame = new RacingGame(cars);
 
-        System.out.println("\n실행 결과");
+        OutputView.printStartMessage();
+
         for (int i = 0; i < attemptCount; i++) {
             racingGame.moveAllCars();
-            for (Car car : cars) {
-                OutputView.printCarStatus(car.getName(), car.getPosition());
-            }
-            System.out.println();
+            OutputView.printRoundResult(cars);
         }
 
-        List<String> winners = racingGame.getWinners();
-        OutputView.printWinners(winners);
+        OutputView.printWinners(racingGame.getWinners());
     }
 }
