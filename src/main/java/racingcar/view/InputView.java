@@ -10,7 +10,7 @@ public class InputView {
         System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
         String input = Console.readLine();
         List<String> carNames = Arrays.asList(input.split(","));
-        carNames.forEach(InputView::validateCarName);
+        validateCarNames(carNames);
         return carNames;
     }
 
@@ -19,13 +19,28 @@ public class InputView {
         return Integer.parseInt(Console.readLine());
     }
 
-    public static void validateCarName(String carName) {
-        if (carName.isBlank()) {
-            throw new IllegalArgumentException("자동차 이름은 비어있을 수 없습니다.");
+    public static void validateCarNames(List<String> names) {
+        if (names.isEmpty()) {
+            throw new IllegalArgumentException("자동차 이름 목록은 비어 있을 수 없습니다.");
         }
 
-        if (carName.length() > 5) {
-            throw new IllegalArgumentException("자동차 이름은 5자를 초과할 수 없습니다.");
+        if (names.size() < 2) {
+            throw new IllegalArgumentException("자동차는 2대 이상이어야 합니다.");
+        }
+
+        long distinctCount = names.stream().distinct().count();
+        if (distinctCount != names.size()) {
+            throw new IllegalArgumentException("중복된 자동차 이름이 있습니다.");
+        }
+
+        for (String name : names) {
+            if (name.isBlank()) {
+                throw new IllegalArgumentException("자동차 이름은 비어 있을 수 없습니다.");
+            }
+            if (name.length() > 5) {
+                throw new IllegalArgumentException("자동차 이름은 5자를 초과할 수 없습니다.");
+            }
         }
     }
+
 }
