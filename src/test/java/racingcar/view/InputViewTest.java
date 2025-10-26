@@ -56,6 +56,15 @@ class InputViewTest extends NsTest {
     }
 
     @Test
+    void 자동차_이름_사이에_빈값이_있으면_예외가_발생한다() {
+        List<String> names = List.of("pobi", "", "jun");
+        assertThatThrownBy(() -> InputView.validateCarNames(names))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("자동차 이름은 비어 있을 수 없습니다.");
+    }
+
+
+    @Test
     void 자동차_대수가_2대_미만이면_예외가_발생한다() {
         List<String> names = List.of("pobi");
         assertThatThrownBy(() -> InputView.validateCarNames(names))
