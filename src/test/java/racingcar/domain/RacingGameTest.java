@@ -17,7 +17,8 @@ public class RacingGameTest {
             racingGame.moveAllCars();
         }
 
-        assertThat(cars)
+        List<Car> resultCars = racingGame.getAllCars();
+        assertThat(resultCars)
                 .allSatisfy(car -> assertThat(car.getPosition()).isBetween(0, attemptCount));
     }
 

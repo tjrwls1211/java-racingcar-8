@@ -24,7 +24,7 @@ public class RacingController {
 
         for (int i = 0; i < attemptCount; i++) {
             racingGame.moveAllCars();
-            OutputView.printRoundResult(cars);
+            OutputView.printRoundResult(racingGame.getAllCars());
         }
 
         OutputView.printWinners(racingGame.getWinners());
